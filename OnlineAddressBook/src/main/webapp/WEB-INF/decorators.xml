@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir="/WEB-INF/decorators">
+
+
+    <excludes>
+        <pattern>/app/login.htm*</pattern>
+        <pattern>/app/welcome.htm*</pattern>
+        <pattern>/app/userreg.htm*</pattern>
+    </excludes>
+
+
+
+    <decorator name="app" page="app.jsp">
+        <pattern>/app</pattern>
+    </decorator>
+
+
+</decorators>
