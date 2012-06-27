@@ -51,7 +51,7 @@ Released : 20120520
         </script>
     </div>
     <!-- end #menu -->
-    <div id="splash"><img src="/OnlineAddressBook/resources/img/pics01.jpg" width="980" height="300" alt=""/></div>
+    <div id="splash"><img src="/OnlineAddressBook/resources/img/pic4.jpg" width="980" height="160" alt=""/></div>
     <div id="page">
         <div id="content">
             <div class="contentbg">
