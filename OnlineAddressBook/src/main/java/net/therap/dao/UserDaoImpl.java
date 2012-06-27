@@ -2,7 +2,6 @@ package net.therap.dao;
 
 import net.therap.domain.User;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
     }
 
     public User getUserById(long id) {
-        return getHibernateTemplate().get(User.class,id);
+        return getHibernateTemplate().get(User.class, id);
     }
 
     public void saveUser(User user) {

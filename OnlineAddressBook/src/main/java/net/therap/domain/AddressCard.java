@@ -42,10 +42,7 @@ public class AddressCard {
     @Size(min = 10, max = 50, message = "within 10 to 50 characters")
     private String email;
     private Date lastUpdate;
-
-
     private String photoLink ;
-
     private User user;
     private MultipartFile imageFile;
     private Image image;

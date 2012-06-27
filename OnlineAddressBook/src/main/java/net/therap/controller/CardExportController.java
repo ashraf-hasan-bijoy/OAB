@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -34,21 +33,20 @@ public class CardExportController {
     }
 
     @RequestMapping("/exportcard.htm")
-    public void cardExportAction(HttpServletRequest request,HttpServletResponse response) {
-       if (request.getParameter("cardid") == null || !request.getParameter("cardid").matches("[0-9]+")) {
+    public void cardExportAction(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getParameter("cardid") == null || !request.getParameter("cardid").matches("[0-9]+")) {
             throw new ApplicationException(" You are trying to access Illegal resource...");
-       }
-       String cardData = addressCardService.getCardExportData(Long.valueOf(request.getParameter("cardid")));
-       response.setContentType("text/plain; charset=utf-8");
-       response.setHeader("Content-Disposition", "attachment; filename=vCard.vcf");
-       try{
-        OutputStream outputStream = response.getOutputStream();
-        outputStream.write(cardData.getBytes());
-        outputStream.close();
-        outputStream.flush();
-       }
-       catch (Exception exception){
-           throw new ApplicationException("You are trying to access Illegal resource...");
-       }
+        }
+        String cardData = addressCardService.getCardExportData(Long.valueOf(request.getParameter("cardid")));
+        response.setContentType("text/plain; charset=utf-8");
+        response.setHeader("Content-Disposition", "attachment; filename=vCard.vcf");
+        try {
+            OutputStream outputStream = response.getOutputStream();
+            outputStream.write(cardData.getBytes());
+            outputStream.close();
+            outputStream.flush();
+        } catch (Exception exception) {
+            throw new ApplicationException("You are trying to access Illegal resource...");
+        }
     }
 }

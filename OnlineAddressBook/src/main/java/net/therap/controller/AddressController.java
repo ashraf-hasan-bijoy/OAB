@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +27,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/address")
-@SessionAttributes({"addresscard","addresscardeditform"})
+@SessionAttributes({"addresscard", "addresscardeditform"})
 public class AddressController {
 
     @Autowired
@@ -62,13 +61,13 @@ public class AddressController {
         }
 
         Long id = Long.valueOf(request.getParameter("cardid"));
-        boolean isDeleted = addressCardService.deleteAddressCardById(id,(User)request.getSession().getAttribute("user"));
+        boolean isDeleted = addressCardService.deleteAddressCardById(id, (User) request.getSession().getAttribute("user"));
 
-        if(isDeleted == false){
-           throw new ApplicationException(" You are trying to access Illegal resource...");
+        if (isDeleted == false) {
+            throw new ApplicationException(" You are trying to access Illegal resource...");
         }
 
-        model.put("title","Address List");
+        model.put("title", "Address List");
         return "redirect:/app/address/cardlist.htm";
     }
 
@@ -76,21 +75,21 @@ public class AddressController {
     @RequestMapping(value = "/search.htm", method = RequestMethod.GET)
     public String searchAddressCardGetAction(Map<String, Object> model) {
 
-        model.put("title","Address Card Search");
+        model.put("title", "Address Card Search");
         return "cardsearch";
     }
 
     @RequestMapping(value = "/search.htm", method = RequestMethod.POST)
     public String searchAddressCardPostAction(HttpServletRequest request, Map<String, Object> model) {
 
-        if (request.getParameter("pattern") == null || request.getParameter("pattern").trim().length() == 0){
-           return "redirect:/app/address/search.htm?error=1";
+        if (request.getParameter("pattern") == null || request.getParameter("pattern").trim().length() == 0) {
+            return "redirect:/app/address/search.htm?error=1";
         }
 
-        User user = (User)request.getSession().getAttribute("user");
-        List<AddressCard> addressCardList = addressCardService.getAddressCardsByPattern(request.getParameter("pattern"),user);
+        User user = (User) request.getSession().getAttribute("user");
+        List<AddressCard> addressCardList = addressCardService.getAddressCardsByPattern(request.getParameter("pattern"), user);
         model.put("addresscardlist", addressCardList);
-        model.put("title","Address Card Search");
+        model.put("title", "Address Card Search");
         return "cardsearch";
 
     }
@@ -105,7 +104,7 @@ public class AddressController {
 
         AddressCard addressCard = addressCardService.getAddressCardById(Long.valueOf(request.getParameter("cardid")));
         model.put("addresscard", addressCard);
-        model.put("title","Address Card Details");
+        model.put("title", "Address Card Details");
         return "viewaddresscard";
 
     }
@@ -130,9 +129,9 @@ public class AddressController {
         if (bindingResult.hasErrors()) {
             return "editaddresscard";
         } else {
-            User user =(User)request.getSession().getAttribute("user");
+            User user = (User) request.getSession().getAttribute("user");
             addressCardService.updateAddressCard(user, addressCard);
-            return "redirect:/app/address/view.htm?cardid="+addressCard.getAddressCardId();
+            return "redirect:/app/address/view.htm?cardid=" + addressCard.getAddressCardId();
         }
 
     }
@@ -160,14 +159,10 @@ public class AddressController {
         return "cardlist";
 
 
-
-
-
-
         /*User modelUser = userService.getUserById(((User)request.getSession().getAttribute("user")).getUserID());
-        model.put("modelUser",modelUser);
-        model.put("title","Address List");
-        return "cardlist";*/
+       model.put("modelUser",modelUser);
+       model.put("title","Address List");
+       return "cardlist";*/
 
     }
 
@@ -176,7 +171,7 @@ public class AddressController {
 
         AddressCard addressCard = new AddressCard();
         model.put("addresscard", addressCard);
-        model.put("title","Add New Card");
+        model.put("title", "Add New Card");
         return "createaddresscard";
 
     }
@@ -185,11 +180,11 @@ public class AddressController {
     public String createAddressCardPostAction(@ModelAttribute("addresscard") @Valid AddressCard addressCard, BindingResult bindingResult, HttpServletRequest request, Map<String, Object> model) {
 
         if (bindingResult.hasErrors()) {
-            model.put("title","Add New Card");
+            model.put("title", "Add New Card");
             return "createaddresscard";
         } else {
-            User user =(User)request.getSession().getAttribute("user");
-            addressCardService.saveAddressCard(user,addressCard);
+            User user = (User) request.getSession().getAttribute("user");
+            addressCardService.saveAddressCard(user, addressCard);
             return "redirect:/app/address/cardlist.htm";
         }
 
