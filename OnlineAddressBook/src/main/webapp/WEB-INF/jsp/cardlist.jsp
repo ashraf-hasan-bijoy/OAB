@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/fn" %>
 <html>
 <head></head>
 <body>
@@ -15,6 +16,14 @@
         <div class="post">
             <h2 class="title">${title}</h2>
         </div>
+
+         <c:if test="${modelUser.addressCardList ne  null and fn:length(modelUser.addressCardList) == 0}">
+            <div class="post">
+                <div class="entry">
+                    <span style="text-align:center;">No result found</span>
+                </div>
+            </div>
+        </c:if>
 
         <c:forEach items="${modelUser.addressCardList}" var="card">
             <div class="post">

@@ -52,8 +52,8 @@ public class AddressCardDaoImpl extends HibernateDaoSupport implements AddressCa
 
     }
 
-    public List<AddressCard> getAddressCardsByPattern(String pattern) {
-        return getHibernateTemplate().find("select addressCard from AddressCard as addressCard where addressCard.fullName like ?",new Object[]{"%"+pattern.toLowerCase()+"%"});
+    public List<AddressCard> getAddressCardsByPattern(String pattern , User user) {
+        return getHibernateTemplate().find("select addressCard from AddressCard as addressCard where addressCard.user = ? and addressCard.fullName like ?",new Object[]{user,"%"+pattern.toLowerCase()+"%"});
     }
 
     public AddressCard getAddressCardById(long id) {

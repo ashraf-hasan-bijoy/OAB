@@ -66,8 +66,8 @@ public class AddressCardServiceImpl implements AddressCardService {
 
     }
 
-    public List<AddressCard> getAddressCardsByPattern(String pattern) {
-        return addressCardDao.getAddressCardsByPattern(pattern);
+    public List<AddressCard> getAddressCardsByPattern(String pattern , User user) {
+        return addressCardDao.getAddressCardsByPattern(pattern,user);
     }
 
     public void saveAddressCardByImportedFile(User user , MultipartFile multipartFile) {

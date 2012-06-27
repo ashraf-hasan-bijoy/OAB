@@ -1,5 +1,6 @@
 package net.therap.controller;
 import junitx.framework.Assert;
+import net.therap.domain.User;
 import net.therap.service.UserServiceImpl;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -10,6 +11,7 @@ import org.unitils.mock.core.MockObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,30 +27,32 @@ public class LoginControllerTest extends UnitilsTestNG {
 
     @BeforeClass
     void setUp(){
+        loginController = new LoginController();
         loginController.setUserService(userServiceMock.getMock());
     }
     @Test
-    void loginActionTest1(){
+    public void loginActionTest1(){
+        Mock<User> userMock = new MockObject<User>(User.class,this);
+        Mock<HttpSession> httpSessionMock = new MockObject<HttpSession>(HttpSession.class,this);
         Mock<HttpServletRequest> httpServletRequestMock = new MockObject<HttpServletRequest>(HttpServletRequest.class,this);
         Mock<HttpServletResponse> httpServletResponseMock = new MockObject<HttpServletResponse>(HttpServletResponse.class,this);
-        userServiceMock.returns(null).getUserByEmailAndPass("a@yahoo.com","12345");
+        userServiceMock.returns(userMock).getUserByEmailAndPass("a@yahoo.com","12345");
         httpServletRequestMock.returns("a@yahoo.com").getParameter("email");
         httpServletRequestMock.returns("12345").getParameter("password");
         httpServletRequestMock.returns("www.abc.com").getHeader("Referer");
-        httpServletRequestMock.returns(false).getHeader("Referer").contains("errorcode");
+        httpServletRequestMock.returns(httpSessionMock).getSession();
         String result = loginController.loginAction(httpServletRequestMock.getMock(),httpServletResponseMock.getMock());
-        Assert.assertEquals(result,"www.abc.com?errorcode=1");
+        Assert.assertEquals(result,"redirect:/app/home.htm");
     }
     @Test
-    void loginActionTest2(){
+    public void loginActionTest2(){
         Mock<HttpServletRequest> httpServletRequestMock = new MockObject<HttpServletRequest>(HttpServletRequest.class,this);
         Mock<HttpServletResponse> httpServletResponseMock = new MockObject<HttpServletResponse>(HttpServletResponse.class,this);
         userServiceMock.returns(null).getUserByEmailAndPass("a@yahoo.com","12345");
         httpServletRequestMock.returns("a@yahoo.com").getParameter("email");
         httpServletRequestMock.returns("12345").getParameter("password");
         httpServletRequestMock.returns("www.abc.com").getHeader("Referer");
-        httpServletRequestMock.returns(true).getHeader("Referer").contains("errorcode");
         String result = loginController.loginAction(httpServletRequestMock.getMock(),httpServletResponseMock.getMock());
-        Assert.assertEquals(result,"www.abc.com");
+        Assert.assertEquals(result,"redirect:www.abc.com?errorcode=1");
     }
 }

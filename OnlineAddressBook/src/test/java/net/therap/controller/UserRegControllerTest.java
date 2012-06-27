@@ -25,22 +25,25 @@ public class UserRegControllerTest extends UnitilsTestNG {
     Mock<UserServiceImpl> userServiceMock = new MockObject<UserServiceImpl>(UserServiceImpl.class,this);
 
     @BeforeClass
-    void setUp(){
+    public void setUp(){
+       userRegController = new UserRegController();
        userRegController.setUserService(userServiceMock.getMock());
     }
 
     @Test
-    void customerRegActionTest(){
+    public void customerRegActionTest(){
         String result = userRegController.customerRegAction(new HashMap<String, Object>());
         Assert.assertEquals(result,"userreg");
     }
 
     @Test
-    void saveFlatOwnerActionTest1(){
+    public void saveFlatOwnerActionTest1(){
         Mock<User> userMock = new MockObject<User>(User.class,this);
         Mock<BindingResult> bindingResultMock = new MockObject<BindingResult>(BindingResult.class,this);
         bindingResultMock.returns(true).hasErrors();
         userMock.returns("a@yahoo.com").getEmail();
+        userMock.returns("12345").getConfirmPassword();
+        userMock.returns("12345").getPassword();
         userServiceMock.returns(true).isEmailExists("a@yahoo.com");
         String result = userRegController.saveFlatOwnerAction(userMock.getMock(),bindingResultMock.getMock());
         Assert.assertEquals("userreg",result);

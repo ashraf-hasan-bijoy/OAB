@@ -22,7 +22,7 @@ public interface AddressCardDao {
 
     public void updateAddressCard(AddressCard addressCard);
 
-    public List<AddressCard> getAddressCardsByPattern(String pattern);
+    public List<AddressCard> getAddressCardsByPattern(String pattern ,User user);
 
     public int deleteAddressCardById(long id,User user);
 

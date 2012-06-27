@@ -22,7 +22,7 @@ public interface AddressCardService {
 
     public void updateAddressCard(User user,AddressCard addressCard);
 
-    public List<AddressCard> getAddressCardsByPattern(String pattern);
+    public List<AddressCard> getAddressCardsByPattern(String pattern , User user);
 
     public boolean deleteAddressCardById(long id,User user);
 
