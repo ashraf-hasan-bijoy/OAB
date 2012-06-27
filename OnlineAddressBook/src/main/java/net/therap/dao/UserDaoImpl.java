@@ -35,7 +35,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
     public void saveUser(User user) {
         Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
-        session.saveOrUpdate(user);
+        session.save(user);
         session.flush();
     }
 }
