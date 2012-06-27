@@ -152,6 +152,7 @@ public class AddressController {
 
         AddressCard addressCard = new AddressCard();
         model.put("addresscard", addressCard);
+        model.put("title","Add New Card");
         return "createaddresscard";
 
     }
@@ -160,6 +161,7 @@ public class AddressController {
     public String createAddressCardPostAction(@ModelAttribute("addresscard") @Valid AddressCard addressCard, BindingResult bindingResult, HttpServletRequest request, Map<String, Object> model) {
 
         if (bindingResult.hasErrors()) {
+            model.put("title","Add New Card");
             return "createaddresscard";
         } else {
             User user =(User)request.getSession().getAttribute("user");

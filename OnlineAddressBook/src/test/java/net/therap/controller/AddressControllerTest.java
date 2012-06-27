@@ -22,44 +22,47 @@ import java.util.HashMap;
  * Time: 9:12 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AddressControllerTest extends UnitilsTestNG  {
+public class AddressControllerTest extends UnitilsTestNG{
     @TestedObject
     AddressController addressController;
     Mock<UserServiceImpl> userService = new MockObject<UserServiceImpl>(UserServiceImpl.class,this);
     Mock<AddressCardServiceImpl> addressCardService = new MockObject<AddressCardServiceImpl>(AddressCardServiceImpl.class,this);
 
     @BeforeClass
-    void setUp(){
+    public void setUp(){
+        addressController = new AddressController();
         addressController.setUserService(userService.getMock());
         addressController.setAddressCardService(addressCardService.getMock());
     }
 
     @Test(expectedExceptions = RuntimeException.class)
-    void deleteAddressCardActionTest1(){
+    public void deleteAddressCardActionTest1(){
         Mock<HttpServletRequest> httpServletRequestMock = new MockObject<HttpServletRequest>(HttpServletRequest.class,this);
         httpServletRequestMock.returns(null).getParameter("cardid");
         addressController.deleteAddressCardAction(httpServletRequestMock.getMock(),new HashMap<String, Object>());
     }
 
     @Test
-    void deleteAddressCardActionTest2(){
+    public void deleteAddressCardActionTest2(){
         Mock<HttpServletRequest> httpServletRequestMock = new MockObject<HttpServletRequest>(HttpServletRequest.class,this);
-        httpServletRequestMock.returns(2).getParameter("cardid");
-        addressCardService.returns(true).deleteAddressCardById(2L,new User());
+        Mock<User> userMock = new MockObject<User>(User.class,this);
+        httpServletRequestMock.returns(userMock).getSession().getAttribute("user");
+        httpServletRequestMock.returns("2").getParameter("cardid");
+        addressCardService.returns(true).deleteAddressCardById(2L,userMock.getMock());
         String result = addressController.deleteAddressCardAction(httpServletRequestMock.getMock(),new HashMap<String, Object>());
         Assert.assertEquals("redirect:/app/address/cardlist.htm",result);
     }
 
     @Test
-    void searchAddressCardPostActionTest1(){
+    public void searchAddressCardPostActionTest1(){
         Mock<HttpServletRequest> httpServletRequestMock = new MockObject<HttpServletRequest>(HttpServletRequest.class,this);
         httpServletRequestMock.returns(null).getParameter("cardid");
-        String result = addressController.deleteAddressCardAction(httpServletRequestMock.getMock(),new HashMap<String, Object>());
+        String result = addressController.searchAddressCardPostAction(httpServletRequestMock.getMock(),new HashMap<String, Object>());
         Assert.assertEquals("redirect:/app/address/search.htm?error=1",result);
     }
 
     @Test(expectedExceptions = RuntimeException.class)
-    void searchAddressCardPostActionTest2(){
+    public void searchAddressCardPostActionTest2(){
         Mock<HttpServletRequest> httpServletRequestMock = new MockObject<HttpServletRequest>(HttpServletRequest.class,this);
         httpServletRequestMock.returns(2).getParameter("cardid");
         String result = addressController.viewAddressCardAction(httpServletRequestMock.getMock(),new HashMap<String, Object>());
@@ -67,31 +70,31 @@ public class AddressControllerTest extends UnitilsTestNG  {
     }
 
     @Test
-    void viewAddressCardActionTest1(){
+    public void viewAddressCardActionTest1(){
         Mock<HttpServletRequest> httpServletRequestMock = new MockObject<HttpServletRequest>(HttpServletRequest.class,this);
-        httpServletRequestMock.returns(2).getParameter("cardid");
+        httpServletRequestMock.returns("2").getParameter("cardid");
         String result = addressController.viewAddressCardAction(httpServletRequestMock.getMock(),new HashMap<String, Object>());
         Assert.assertEquals("viewaddresscard",result);
     }
 
     @Test(expectedExceptions = RuntimeException.class)
-    void viewAddressCardActionTest2(){
+    public void viewAddressCardActionTest2(){
         Mock<HttpServletRequest> httpServletRequestMock = new MockObject<HttpServletRequest>(HttpServletRequest.class,this);
         httpServletRequestMock.returns(2).getParameter("cardid");
         addressController.viewAddressCardAction(httpServletRequestMock.getMock(),new HashMap<String, Object>());
     }
 
     @Test(expectedExceptions = RuntimeException.class)
-    void editAddressCardGetActionTest1(){
+    public void editAddressCardGetActionTest1(){
         Mock<HttpServletRequest> httpServletRequestMock = new MockObject<HttpServletRequest>(HttpServletRequest.class,this);
         httpServletRequestMock.returns(null).getParameter("cardid");
         addressController.editAddressCardGetAction(httpServletRequestMock.getMock(),new HashMap<String, Object>());
     }
 
     @Test
-    void editAddressCardGetActionTest2(){
+    public void editAddressCardGetActionTest2(){
         Mock<HttpServletRequest> httpServletRequestMock = new MockObject<HttpServletRequest>(HttpServletRequest.class,this);
-        httpServletRequestMock.returns(2).getParameter("cardid");
+        httpServletRequestMock.returns("2").getParameter("cardid");
         String result = addressController.editAddressCardGetAction(httpServletRequestMock.getMock(),new HashMap<String, Object>());
         Assert.assertEquals("editaddresscard",result);
     }
