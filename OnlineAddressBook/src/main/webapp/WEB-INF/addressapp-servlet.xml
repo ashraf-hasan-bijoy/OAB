@@ -33,13 +33,13 @@
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
-   <!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" id="exceptionResolver">
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" id="exceptionResolver">
         <property name="exceptionMappings">
             <props>
-                <prop key="net.therap.exception.ApplicationException">exception/applicationexception</prop>
-                <prop key="java.lang.Exception">exception/error</prop>
+                <prop key="net.therap.exception.ApplicationException">applicationexception</prop>
+                <prop key="java.lang.Exception">error</prop>
             </props>
         </property>
-    </bean>-->
+    </bean>
 
 </beans>

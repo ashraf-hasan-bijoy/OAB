@@ -15,21 +15,19 @@
             <h2 class="title">Welcome to Online address Book</h2>
 
             <div class="entry">
-                <p>21th century is the age of digital and dynamic social communication. With the technological
-                    advancement, our life became so dynamic that automated solutions for our conventional communicative
-                    activities, is now the demand of time. In our country, with the booming increase of population, the
-                    housing sector is drawing our attention greatly for accommodation solutions. But all the
-                    communicative activities related to this sector are still manual and time consuming. So the online
-                    solution for communication, dedicated to this sector has become essential to make our life easy.</p>
+                <p>Trying to maintain all of your personal and business contacts can be an overwhelming, time
+                    consuming and frustrating experience. Networking is vital nowadays, so making sure your
+                    contacts are organized and up-to-date is extremely important. Contact Wolf is the perfect
+                    solution for helping you manage all your contacts.
+                    Powerful enough for businesses to maintain large client and customer databases or perfect
+                    for the average home user that just needs to keep track of family and friends. Keep detailed
+                    information on everyone you know - Phone numbers, addresses, internet addresses, family
+                    info, business details, Birthdays & Anniversaries, personal comments and much more! </p>
 
-                <p> This system aims to automate the communication among all the stakeholders acting in the housing
-                    sector of Bangladesh. From a person seeking flats to rent or purchase, to a giant housing developer
-                    looking for a platform to advertise its ongoing and future projects, can be an active part of our
-                    system. People searching to buy or rent flats in specific region or criteria, will be able to find
-                    flats fulfilling their demand. Registered users can subscribe to the posts of flats meeting to their
-                    provided criteria. Flat related posts for rent or sell will be provided by Flat owners and housing
-                    developers. Flat owners and housing developers can also subscribe to the information of the system
-                    users, searching for flats to buy or rent.</p>
+                <p> Our interface is very intuitive to use and designed so all your contact information is
+                    visible...you won't have to click through endless windows to find the information you're
+                    looking for. It's Network Compatible so you can easily configure it to share the database
+                    between multiple computers.</p>
 
             </div>
         </div>
