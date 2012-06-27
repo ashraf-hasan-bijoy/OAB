@@ -87,7 +87,8 @@ public class AddressController {
            return "redirect:/app/address/search.htm?error=1";
         }
 
-        List<AddressCard> addressCardList = addressCardService.getAddressCardsByPattern(request.getParameter("pattern"));
+        User user = (User)request.getSession().getAttribute("user");
+        List<AddressCard> addressCardList = addressCardService.getAddressCardsByPattern(request.getParameter("pattern"),user);
         model.put("addresscardlist", addressCardList);
         model.put("title","Address Card Search");
         return "cardsearch";
@@ -140,10 +141,33 @@ public class AddressController {
     @RequestMapping(value = "/cardlist.htm", method = RequestMethod.GET)
     public String cardListAction(HttpServletRequest request, Map<String, Object> model) {
 
-        User modelUser = userService.getUserById(((User)request.getSession().getAttribute("user")).getUserID());
+        int currentPage;
+        long pageCount;
+        User user = (User) request.getSession().getAttribute("user");
+
+        if (request.getParameter("curr") == null || !request.getParameter("curr").matches("[0-9]+")) {
+            currentPage = 1;
+        } else {
+            currentPage = Integer.valueOf(request.getParameter("curr"));
+        }
+
+        pageCount = addressCardService.getPageCountByUser(user);
+        List<AddressCard> addressCards = addressCardService.getAddressCardListByUser(user, currentPage);
+
+        model.put("cardlist", addressCards);
+        model.put("pagecount", pageCount);
+        model.put("title", "Address List");
+        return "cardlist";
+
+
+
+
+
+
+        /*User modelUser = userService.getUserById(((User)request.getSession().getAttribute("user")).getUserID());
         model.put("modelUser",modelUser);
         model.put("title","Address List");
-        return "cardlist";
+        return "cardlist";*/
 
     }
 

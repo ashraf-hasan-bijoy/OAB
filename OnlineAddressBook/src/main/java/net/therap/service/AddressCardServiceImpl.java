@@ -28,6 +28,12 @@ import java.util.Properties;
  */
 public class AddressCardServiceImpl implements AddressCardService {
     private AddressCardDao addressCardDao;
+    final private int PAGE_SIZE = 3;
+
+    public List<AddressCard> getAddressCardListByUser(User user, int currentPage) {
+        return addressCardDao.getAddressCardListByUser(user, (currentPage - 1) * PAGE_SIZE, PAGE_SIZE);
+    }
+
     private static final Logger log = LoggerFactory.getLogger(AddressCardServiceImpl.class);
 
     public String getCardExportData(long id) {
@@ -52,6 +58,15 @@ public class AddressCardServiceImpl implements AddressCardService {
 
     public AddressCardDao getAddressCardDao() {
         return addressCardDao;
+    }
+
+    public long getPageCountByUser(User user) {
+
+        long addressCardCount = addressCardDao.getPageCountByUser(user);
+        if (addressCardCount % PAGE_SIZE != 0) {
+            return addressCardCount / PAGE_SIZE + 1;
+        }
+        return addressCardCount / PAGE_SIZE;
     }
 
     public boolean deleteAddressCardById(long id, User user) {

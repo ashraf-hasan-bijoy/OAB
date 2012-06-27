@@ -17,7 +17,7 @@
             <h2 class="title">${title}</h2>
         </div>
 
-         <c:if test="${modelUser.addressCardList ne  null and fn:length(modelUser.addressCardList) == 0}">
+         <c:if test="${cardlist ne  null and fn:length(cardlist) == 0}">
             <div class="post">
                 <div class="entry">
                     <span style="text-align:center;">No result found</span>
@@ -25,7 +25,7 @@
             </div>
         </c:if>
 
-        <c:forEach items="${modelUser.addressCardList}" var="card">
+        <c:forEach items="${cardlist}" var="card">
             <div class="post">
                 <div class="entry">
                     <a href="/OnlineAddressBook/app/address/view.htm?cardid=${card.addressCardId}">${card.fullName}  ${card.organization} ${card.title}</a>
@@ -34,24 +34,24 @@
             </div>
 
         </c:forEach>
-        <%--<div style="float:right;">
+        <div style="float:right;">
             <c:forEach begin="1" end="${pagecount}" var="counter">
 
                 <c:if test="${param['curr'] eq counter}">
-                    <a href="/BdHousingPortal/cus/criteria/view.htm?curr=${counter}" style="color:#dc143c;">
+                    <a href="/OnlineAddressBook/app/address/cardlist.htm?curr=${counter}" style="color:#dc143c;">
                             ${counter}
                     </a>
 
                 </c:if>
                 <c:if test="${param['curr'] ne counter}">
-                    <a href="/BdHousingPortal/cus/criteria/view.htm?curr=${counter}">
+                    <a href="/OnlineAddressBook/app/address/cardlist.htm?curr=${counter}">
                             ${counter}
                     </a>
                 </c:if>
                 &nbsp;
 
             </c:forEach>
-        </div>--%>
+        </div>
         <div style="clear: both;">&nbsp;</div>
     </div>
 </div>

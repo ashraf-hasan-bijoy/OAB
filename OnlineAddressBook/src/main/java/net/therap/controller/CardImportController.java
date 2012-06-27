@@ -42,7 +42,7 @@ public class CardImportController {
     @RequestMapping(value = "/importcard.htm",method = RequestMethod.GET)
     public String cardExportGetAction(HttpServletRequest request,HttpServletResponse response,Map<String, Object> model) {
 
-        model.put("title","");
+        model.put("title","Import Card");
         model.put("importcard",new ImportedCard());
         return "importcard";
 

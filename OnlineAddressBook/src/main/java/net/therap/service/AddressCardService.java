@@ -31,4 +31,8 @@ public interface AddressCardService {
     public String getCardExportData(long id);
 
     public void saveAddressCardByImportedFile(User user, MultipartFile multipartFile);
+
+    public long getPageCountByUser(User user);
+
+    public List<AddressCard> getAddressCardListByUser(User user, int currentPage);
 }

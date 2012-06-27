@@ -52,6 +52,22 @@ public class AddressCardDaoImpl extends HibernateDaoSupport implements AddressCa
 
     }
 
+    public List<AddressCard> getAddressCardListByUser(User user, int startingResultSet, int pageSize) {
+        Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+        Query query = session.createQuery("select addressCard from AddressCard as addressCard where addressCard.user = :user");
+        query.setParameter("user", user);
+        query.setFirstResult(startingResultSet);
+        query.setMaxResults(pageSize);
+        return query.list();
+    }
+
+    public long getPageCountByUser(User user) {
+        Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+        Query query = session.createQuery("select count(*) from AddressCard as addressCard where addressCard.user = :user");
+        query.setParameter("user", user);
+        return ((Long) query.iterate().next()).longValue();
+    }
+
     public List<AddressCard> getAddressCardsByPattern(String pattern , User user) {
         return getHibernateTemplate().find("select addressCard from AddressCard as addressCard where addressCard.user = ? and addressCard.fullName like ?",new Object[]{user,"%"+pattern.toLowerCase()+"%"});
     }

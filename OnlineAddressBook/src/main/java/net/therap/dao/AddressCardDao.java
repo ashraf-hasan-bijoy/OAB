@@ -26,6 +26,10 @@ public interface AddressCardDao {
 
     public int deleteAddressCardById(long id,User user);
 
-     public Blob getImageData(long id);
+    public Blob getImageData(long id);
+
+    public long getPageCountByUser(User user);
+
+    public List<AddressCard> getAddressCardListByUser(User user, int startingResultSet, int pageSize);
 
 }
