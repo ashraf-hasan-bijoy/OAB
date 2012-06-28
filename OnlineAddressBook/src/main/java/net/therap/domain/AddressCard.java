@@ -146,7 +146,7 @@ public class AddressCard {
         this.image = image;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
