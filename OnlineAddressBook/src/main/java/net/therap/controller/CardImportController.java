@@ -3,6 +3,7 @@ package net.therap.controller;
 import net.therap.domain.ImportedCard;
 import net.therap.domain.User;
 import net.therap.service.AddressCardService;
+import net.therap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +27,18 @@ public class CardImportController {
     @Autowired
     AddressCardService addressCardService;
 
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Autowired
+
+    UserService userService;
+
     public AddressCardService getAddressCardService() {
         return addressCardService;
     }
@@ -45,8 +58,8 @@ public class CardImportController {
 
     @RequestMapping(value = "/importcard.htm", method = RequestMethod.POST)
     public String cardExportPostAction(@ModelAttribute("importcard") ImportedCard importedCard, HttpServletRequest request, HttpServletResponse response) {
-
-        addressCardService.saveAddressCardByImportedFile((User) request.getSession().getAttribute("user"), importedCard.getCardFile());
+        User user = userService.getUserById(((User)request.getSession().getAttribute("user")).getUserID());
+        addressCardService.saveAddressCardByImportedFile(user, importedCard.getCardFile());
         return "redirect:/app/address/cardlist.htm";
 
     }
